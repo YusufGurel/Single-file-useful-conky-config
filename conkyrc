@@ -1,0 +1,105 @@
+conky.config = {
+  alignment = 'top_right',
+  background = false,
+  border_width = 0.5,
+  cpu_avg_samples = 1,
+  default_color = 'white',
+  default_outline_color = 'grey',
+  default_shade_color = 'black',
+  draw_borders = true,
+  draw_graph_borders = true,
+  draw_outline = false,
+  draw_shades = false,
+  use_xft = true,
+  font = 'DejaVu Sans Mono:size=10',
+  gap_x = 20,
+  gap_y = 50,
+  maximum_width = 250,
+  minimum_height = 5,
+  minimum_width = 250,
+  net_avg_samples = 2,
+  double_buffer = true,
+  out_to_console = false,
+  out_to_stderr = false,
+  extra_newline = false,
+  own_window = true,
+  own_window_colour = '000000',
+  own_window_class = 'Conky',
+  own_window_argb_visual = true,
+  own_window_type = 'dock',
+  own_window_transparent = true,
+  own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+  stippled_borders = 0,
+  update_interval = 1,
+  uppercase = false,
+  use_spacer = 'none',
+  show_graph_scale = false,
+  show_graph_range = false,
+  update_interval = 1
+}
+
+conky.text = [[
+  $color${font}${font Open Sans:size=44}$alignr${time %H:%M}$font$color${font Open Sans:size=15}
+  $alignr${time %a}, ${time %d %b %Y}$font$color
+  # Yusuf
+  $alignr${font Open Sans:Bold:size=16}${color 4C7523}${exec whoami}
+  # SYS
+  ${font Open Sans:Bold:size=10}${color 4C7523}SYSTEM ${hr 2}$color${font}${offset 1}
+  Kernel $alignr $kernel
+  Uptime $alignr $uptime
+  
+  # Intel Core i7-6700K
+  ${font Open Sans:Bold:size=10}${color 4C7523}Intel Core i7-6700K ${hr 2}$color${font}${offset 1}
+  $color${font}CPU0: $alignr${freq 0}MHz ${color 4C7523}|${color} ${cpu 0}% ${color 4C7523}|${color} ${exec sensors | grep 'Core 0' | cut -c17-20}°C
+  $color${font}CPU1: $alignr${freq 1}MHz ${color 4C7523}|${color} ${cpu 1}% ${color 4C7523}|${color} ${exec sensors | grep 'Core 1' | cut -c17-20}°C
+  $color${font}CPU2: $alignr${freq 2}MHz ${color 4C7523}|${color} ${cpu 2}% ${color 4C7523}|${color} ${exec sensors | grep 'Core 2' | cut -c17-20}°C
+  $color${font}CPU3: $alignr${freq 3}MHz ${color 4C7523}|${color} ${cpu 3}% ${color 4C7523}|${color} ${exec sensors | grep 'Core 3' | cut -c17-20}°C
+  Package $alignr ${exec sensors | grep Package | cut -c17-20}°C
+  
+  # NVidia GeForce® GTX 1070 8GB  
+  ${font Open Sans:Bold:size=10}${color 4C7523}GTX 1070 8GB ${hr 2}$color${font}${offset 1}
+  Frequency $alignr ${nvidia gpufreq} MHz
+  Memory $alignr ${nvidia memfreq} MHz
+  Temperature $alignr ${nvidia temp}°C
+  
+  # RAM
+  ${font Open Sans:Bold:size=10}${color 4C7523}RAM ${hr 2}$color${font}${offset 1}
+  Total $alignr $memmax
+  In use $alignr $mem
+  Free $alignr $memeasyfree
+  Buffers $alignr $buffers
+  Cache $alignr $cached
+  
+  # PROCESSES
+  ${font Open Sans:Bold:size=10}${color 4C7523}PROCESSES ${hr 2}$color${font}${offset 1}
+  ${offset 15}${font Noto sans:size=8}${color EDE0FF}Name               ${alignr}PID   CPU%   MEM%
+  ${offset 15}${color FF7878}${top name 1} ${alignr}${top pid 1} ${top cpu 1} ${top mem 1}
+  ${offset 15}${color FF7878}${top name 2} ${alignr}${top pid 2} ${top cpu 2} ${top mem 2}
+  ${offset 15}${color FF7878}${top name 3} ${alignr}${top pid 3} ${top cpu 3} ${top mem 3}
+  ${offset 15}${color FF7878}${top name 4} ${alignr}${top pid 4} ${top cpu 4} ${top mem 4}
+  # SSD intel M.2 2280 1TB
+  
+  ${font Open Sans:Bold:size=10}${color 4C7523}     FS${hr 2}$color${font}${offset 1}
+  ${offset 4}Total:${alignr}${fs_size /}
+  ${offset 4}Free:${alignr}${fs_free_perc /}%
+  ${offset 4}Used:${alignr}${fs_used_perc /}%
+  
+  # DISK
+  ${font Open Sans:Bold:size=10}${color 4C7523}DISK${hr 2}$color${font}${offset 1}
+  ${font Open Sans:Bold:size=10}${color ffffff}mdo${hr 2}$color${font}${offset 1}
+  #${offset 4}temps: ${alignr}${exec sudo nvme smart-log /dev/nvme0 | grep temperature | cut -c39-40}°C ${exec sudo nvme smart-log /dev/nvme0 | grep temperature | cut -c39-40}°C
+${offset 4}read: ${alignr}${diskio_read /dev/md0}
+  ${offset 4}write: ${alignr}${diskio_write /dev/md0}
+  ${font Open Sans:Bold:size=10}${color ffffff}dm-0${hr 2}$color${font}${offset 1}
+  #${offset 4}temps: ${alignr}${exec sudo hddtemp /dev/sda | cut -c33-34}°C ${exec sudo hddtemp /dev/sdb | cut -c31-32}°C ${exec sudo hddtemp /dev/sdc | cut -c33-34}°C
+${offset 4}read: ${alignr}${diskio_read /dev/dm-0}
+  ${offset 4}write: ${alignr}${diskio_write /dev/dm-0}
+  
+  # NET
+  ${font Open Sans:Bold:size=10}${color 4C7523}NETWORK${hr 2}$color${font}${offset 1}
+  ${offset 4}IP: ${alignr}${addr enp8s0}
+  ${offset 4}up: ${alignr}${upspeed enp8s0}
+  ${offset 4}total: ${alignr}${totalup enp8s0}
+  ${offset 4}down: ${alignr}${downspeed enp8s0}
+  ${offset 4}total: ${alignr}${totaldown enp8s0}
+]]
